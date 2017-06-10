@@ -1,0 +1,196 @@
+						Floyd Warshall Solution for the Current Graph 
+
+  The Input Graph (in matrix form ) is :
+ 
+ 	 0 5 INF INF INF INF INF 
+ 
+ 	 5 0 INF INF 6 INF INF 
+ 
+ 	 INF INF 0 INF 8 INF INF 
+ 
+ 	 INF INF INF 0 INF INF INF 
+ 
+ 	 INF 6 8 INF 0 INF INF 
+ 
+ 	 INF INF INF INF INF 0 INF 
+ 
+ 	 INF INF INF INF INF INF 0 
+ 
+ 	 
+ 
+ Applying Floyd Warshall Algorithm : 
+ 
+ 	 
+ STEP 1 : 
+ 	 W(0)  =   0 5 INF INF INF INF INF                                    Pi(0) = NIL 0 NIL NIL NIL NIL NIL 
+ 
+ 	 	   5 0 INF INF 6 INF INF                                                  1 NIL NIL NIL 1 NIL NIL 
+ 
+ 	 	   INF INF 0 INF 8 INF INF                                                  NIL NIL NIL NIL 2 NIL NIL 
+ 
+ 	 	   INF INF INF 0 INF INF INF                                                  NIL NIL NIL NIL NIL NIL NIL 
+ 
+ 	 	   INF 6 8 INF 0 INF INF                                                  NIL 4 4 NIL NIL NIL NIL 
+ 
+ 	 	   INF INF INF INF INF 0 INF                                                  NIL NIL NIL NIL NIL NIL NIL 
+ 
+ 	 	   INF INF INF INF INF INF 0                                                  NIL NIL NIL NIL NIL NIL NIL 
+ 
+ 	 	   
+ 
+ STEP 2 : 
+ 	 W(1)  =   0 5 INF INF INF INF INF                                    Pi(1) = NIL 0 NIL NIL NIL NIL NIL 
+ 
+ 	 	   5 0 INF INF 6 INF INF                                                  1 NIL NIL NIL 1 NIL NIL 
+ 
+ 	 	   INF INF 0 INF 8 INF INF                                                  NIL NIL NIL NIL 2 NIL NIL 
+ 
+ 	 	   INF INF INF 0 INF INF INF                                                  NIL NIL NIL NIL NIL NIL NIL 
+ 
+ 	 	   INF 6 8 INF 0 INF INF                                                  NIL 4 4 NIL NIL NIL NIL 
+ 
+ 	 	   INF INF INF INF INF 0 INF                                                  NIL NIL NIL NIL NIL NIL NIL 
+ 
+ 	 	   INF INF INF INF INF INF 0                                                  NIL NIL NIL NIL NIL NIL NIL 
+ 
+ 	 	   
+ 
+ 	 	   
+ No change occured from W(0) to W(1) 
+
+ 
+ STEP 3 : 
+ 	 W(2)  =   0 5 INF INF 11 INF INF                                    Pi(2) = NIL 0 NIL NIL NIL NIL NIL 
+ 
+ 	 	   5 0 INF INF 6 INF INF                                                  1 NIL NIL NIL 1 NIL NIL 
+ 
+ 	 	   INF INF 0 INF 8 INF INF                                                  NIL NIL NIL NIL 2 NIL NIL 
+ 
+ 	 	   INF INF INF 0 INF INF INF                                                  NIL NIL NIL NIL NIL NIL NIL 
+ 
+ 	 	   11 6 8 INF 0 INF INF                                                  NIL 4 4 NIL NIL NIL NIL 
+ 
+ 	 	   INF INF INF INF INF 0 INF                                                  NIL NIL NIL NIL NIL NIL NIL 
+ 
+ 	 	   INF INF INF INF INF INF 0                                                  NIL NIL NIL NIL NIL NIL NIL 
+ 
+ 	 	   
+ 
+ 	 	   
+ Changes occured from  W(1) to W(2)  : 
+ i = 0   j = 4   Replace = INF --> 11 
+
+ i = 4   j = 0   Replace = INF --> 11 
+
+ 
+ STEP 4 : 
+ 	 W(3)  =   0 5 INF INF 11 INF INF                                    Pi(3) = NIL 0 NIL NIL NIL NIL NIL 
+ 
+ 	 	   5 0 INF INF 6 INF INF                                                  1 NIL NIL NIL 1 NIL NIL 
+ 
+ 	 	   INF INF 0 INF 8 INF INF                                                  NIL NIL NIL NIL 2 NIL NIL 
+ 
+ 	 	   INF INF INF 0 INF INF INF                                                  NIL NIL NIL NIL NIL NIL NIL 
+ 
+ 	 	   11 6 8 INF 0 INF INF                                                  NIL 4 4 NIL NIL NIL NIL 
+ 
+ 	 	   INF INF INF INF INF 0 INF                                                  NIL NIL NIL NIL NIL NIL NIL 
+ 
+ 	 	   INF INF INF INF INF INF 0                                                  NIL NIL NIL NIL NIL NIL NIL 
+ 
+ 	 	   
+ 
+ 	 	   
+ Changes occured from  W(2) to W(3)  : 
+ 
+ STEP 5 : 
+ 	 W(4)  =   0 5 INF INF 11 INF INF                                    Pi(4) = NIL 0 NIL NIL NIL NIL NIL 
+ 
+ 	 	   5 0 INF INF 6 INF INF                                                  1 NIL NIL NIL 1 NIL NIL 
+ 
+ 	 	   INF INF 0 INF 8 INF INF                                                  NIL NIL NIL NIL 2 NIL NIL 
+ 
+ 	 	   INF INF INF 0 INF INF INF                                                  NIL NIL NIL NIL NIL NIL NIL 
+ 
+ 	 	   11 6 8 INF 0 INF INF                                                  NIL 4 4 NIL NIL NIL NIL 
+ 
+ 	 	   INF INF INF INF INF 0 INF                                                  NIL NIL NIL NIL NIL NIL NIL 
+ 
+ 	 	   INF INF INF INF INF INF 0                                                  NIL NIL NIL NIL NIL NIL NIL 
+ 
+ 	 	   
+ 
+ 	 	   
+ Changes occured from  W(3) to W(4)  : 
+ 
+ STEP 6 : 
+ 	 W(5)  =   0 5 19 INF 11 INF INF                                    Pi(5) = NIL 0 NIL NIL NIL NIL NIL 
+ 
+ 	 	   5 0 14 INF 6 INF INF                                                  1 NIL NIL NIL 1 NIL NIL 
+ 
+ 	 	   19 14 0 INF 8 INF INF                                                  NIL NIL NIL NIL 2 NIL NIL 
+ 
+ 	 	   INF INF INF 0 INF INF INF                                                  NIL NIL NIL NIL NIL NIL NIL 
+ 
+ 	 	   11 6 8 INF 0 INF INF                                                  NIL 4 4 NIL NIL NIL NIL 
+ 
+ 	 	   INF INF INF INF INF 0 INF                                                  NIL NIL NIL NIL NIL NIL NIL 
+ 
+ 	 	   INF INF INF INF INF INF 0                                                  NIL NIL NIL NIL NIL NIL NIL 
+ 
+ 	 	   
+ 
+ 	 	   
+ Changes occured from  W(4) to W(5)  : 
+ i = 0   j = 2   Replace = INF --> 19 
+
+ i = 1   j = 2   Replace = INF --> 14 
+
+ i = 2   j = 0   Replace = INF --> 19 
+
+ i = 2   j = 1   Replace = INF --> 14 
+
+ 
+ STEP 7 : 
+ 	 W(6)  =   0 5 19 INF 11 INF INF                                    Pi(6) = NIL 0 NIL NIL NIL NIL NIL 
+ 
+ 	 	   5 0 14 INF 6 INF INF                                                  1 NIL NIL NIL 1 NIL NIL 
+ 
+ 	 	   19 14 0 INF 8 INF INF                                                  NIL NIL NIL NIL 2 NIL NIL 
+ 
+ 	 	   INF INF INF 0 INF INF INF                                                  NIL NIL NIL NIL NIL NIL NIL 
+ 
+ 	 	   11 6 8 INF 0 INF INF                                                  NIL 4 4 NIL NIL NIL NIL 
+ 
+ 	 	   INF INF INF INF INF 0 INF                                                  NIL NIL NIL NIL NIL NIL NIL 
+ 
+ 	 	   INF INF INF INF INF INF 0                                                  NIL NIL NIL NIL NIL NIL NIL 
+ 
+ 	 	   
+ 
+ 	 	   
+ Changes occured from  W(5) to W(6)  : 
+ 
+ STEP 8 : 
+ 	 W(7)  =   0 5 19 INF 11 INF INF                                    Pi(7) = NIL 0 NIL NIL NIL NIL NIL 
+ 
+ 	 	   5 0 14 INF 6 INF INF                                                  1 NIL NIL NIL 1 NIL NIL 
+ 
+ 	 	   19 14 0 INF 8 INF INF                                                  NIL NIL NIL NIL 2 NIL NIL 
+ 
+ 	 	   INF INF INF 0 INF INF INF                                                  NIL NIL NIL NIL NIL NIL NIL 
+ 
+ 	 	   11 6 8 INF 0 INF INF                                                  NIL 4 4 NIL NIL NIL NIL 
+ 
+ 	 	   INF INF INF INF INF 0 INF                                                  NIL NIL NIL NIL NIL NIL NIL 
+ 
+ 	 	   INF INF INF INF INF INF 0                                                  NIL NIL NIL NIL NIL NIL NIL 
+ 
+ 	 	   
+ 
+ 	 	   
+ No change occured from W(6) to W(7) 
+
+   Shortest Distance from Node 1 to Node 3  :  19   
+
+   Shortest Path is from Node 1 to Node 3 :   1 --> 2 --> 5 --> 3
