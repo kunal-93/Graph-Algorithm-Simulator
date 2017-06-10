@@ -1,0 +1,145 @@
+FLOYD WARSHALL ALGORITHM --:
+
+The Floyd-Warshall algorithm compares all possible paths through the graph between each pair of vertices.
+Thus,It is called All paor shortest path algorithm as shortest distance between any two vertices is calculated.
+
+
+Consider a graph G with vertices V numbered 1 through N. Further consider a function shortestPath(i, j, k) that returns the shortest possible path from i to j 
+using vertices only from the set {1,2,...,k} as intermediate points along the way. Now, given this function, our goal is to find the shortest path from each i 
+to each j using only vertices 1 to k + 1.
+
+For each of these pairs of vertices, the true shortest path could be either (1) a path that only uses vertices in the set {1, ..., k} or (2) a path that goes
+from i to k + 1 and then from k + 1 to j. We know that the best path from i to j that only uses vertices 1 through k is defined by shortestPath(i, j, k), and 
+it is clear that if there were a better path from i to k + 1 to j, then the length of this path would be the concatenation of the shortest path from 
+i to k + 1 (using vertices in {1, ..., k}) and the shortest path from k + 1 to j (also using vertices in {1, ..., k}).
+
+If w(i, j) is the weight of the edge between vertices i and j, we can define shortestPath(i, j, k + 1) in terms of the following recursive formula: 
+the base case is
+    \textrm{shortestPath}(i, j, 0) = w(i, j)
+and the recursive case is
+
+    \textrm{shortestPath}(i,j,k+1) = \min(\textrm{shortestPath}(i,j,k),\,\textrm{shortestPath}(i,k+1,k) + \textrm{shortestPath}(k+1,j,k))
+
+This formula is the heart of the Floyd–Warshall algorithm. 
+The algorithm works by first computing shortestPath(i, j, k) for all (i, j) pairs for k = 1, then k = 2, etc. 
+This process continues until k = n, and we have found the shortest path for all (i, j) pairs using any intermediate vertices. 
+
+PSEUDOCODE --:
+
+1 Let dist be a |V| x |V| array of minimum distances initialized to (infinity)
+2 for each vertex v
+3    dist[v][v] <-- 0
+4 for each edge (u,v)
+5    dist[u][v] <-- w(u,v)  // the weight of the edge (u,v)
+6 for k from 1 to |V|
+7    for i from 1 to |V|
+8       for j from 1 to |V|
+9          if dist[i][j] > dist[i][k] + dist[k][j] 
+10             dist[i][j] <-- dist[i][k] + dist[k][j]
+11         end if
+
+NEGATIVE CYCLES --:
+
+A negative cycle is a cycle whose edges sum to a negative value. There is no shortest path between any pair of vertices i, j which form part of a negative cycle,
+because path-lengths from i to j can be arbitrarily small (negative). For numerically meaningful output, the Floyd–Warshall algorithm assumes that 
+there are no negative cycles. Nevertheless, if there are negative cycles, the Floyd–Warshall algorithm can be used to detect them. The intuition is as follows:
+
+    The Floyd–Warshall algorithm iteratively revises path lengths between all pairs of vertices (i, j), including where i = j;
+    Initially, the length of the path (i,i) is zero;
+    A path {(i,k), (k,i)} can only improve upon this if it has length less than zero, i.e. denotes a negative cycle;
+    Thus, after the algorithm, (i,i) will be negative if there exists a negative-length path from i back to i.
+
+Hence, to detect negative cycles using the Floyd–Warshall algorithm, one can inspect the diagonal of the path matrix, 
+and the presence of a negative number indicates that the graph contains at least one negative cycle.[2] Obviously, 
+in an undirected graph a negative edge creates a negative cycle (i.e., a closed walk) involving its incident vertices. 
+Considering all edges of the above example graph as undirected, e.g. the vertice sequence 4 - 2 - 4 is a cycle with weight sum -2.
+
+PATH RECONSTRUCTION --:
+
+The Floyd–Warshall algorithm typically only provides the lengths of the paths between all pairs of vertices. With simple modifications, 
+it is possible to create a method to reconstruct the actual path between any two endpoint vertices. 
+While one may be inclined to store the actual path from each vertex to each other vertex, this is not necessary, and in fact, is very costly in terms of memory.
+Instead, the Shortest-path tree can be calculated for each node in O(|E|) time using O(|V|) memory to store each tree which allows us 
+to efficiently reconstruct a path from any two connected vertices.
+
+let dist be a |V| x |V| array of minimum distances initialized to  (infinity)
+let next be a |V| x |V| array of vertex indices initialized to null
+
+procedure Path_Reconstruction ()
+   for each edge (u,v)
+      dist[u][v] <-- w(u,v)  // the weight of the edge (u,v)
+      next[u][v] <-- v
+   for k from 1 to |V|   // standard Floyd-Warshall implementation
+      for i from 1 to |V|
+         for j from 1 to |V|
+            if dist[i][k] + dist[k][j] < dist[i][j] then
+               dist[i][j] <-- dist[i][k] + dist[k][j]
+               next[i][j] <-- next[i][k]
+
+procedure Path(u, v)
+   if next[u][v] = null then
+       return []
+   path = [u]
+   while u not equal to v
+       u <-- next[u][v]
+       path.append(u)
+   return path
+
+COMPLEXITY --: 
+
+The complexity of the algorithm is O(n3).
+
+
+APPLICATIONS --:
+
+The Floyd–Warshall algorithm can be used to solve the following problems, among others:
+
+ *   Shortest paths in directed graphs (Floyd's algorithm).
+ 
+ *   Transitive closure of directed graphs (Warshall's algorithm). In Warshall's original formulation of the algorithm, the graph is unweighted and 
+     represented by a Boolean adjacency matrix. Then the addition operation is replaced by logical conjunction (AND) and 
+     the minimum operation by logical disjunction (OR).
+ 
+ *   Finding a regular expression denoting the regular language accepted by a finite automaton (Kleene's algorithm, 
+     a closely related generalization of the Floyd–Warshall algorithm)
+ 
+ *   Inversion of real matrices (Gauss–Jordan algorithm)
+ 
+ *   Optimal routing. In this application one is interested in finding the path with the maximum flow between two vertices. 
+     This means that, rather than taking minima as in the pseudocode above, one instead takes maxima. The edge weights represent fixed constraints on flow. 
+ 
+ *   Path weights represent bottlenecks; so the addition operation above is replaced by the minimum operation.
+
+ *   Fast computation of Pathfinder networks.
+ 
+ *   Widest paths/Maximum bandwidth paths
+ 
+ *   Computing canonical form of difference bound matrices (DBMs)
+
+REFERENCES --:
+
+ *  Cormen, Thomas H.; Leiserson, Charles E., Rivest, Ronald L. (1990). Introduction to Algorithms (1st ed.). MIT Press and McGraw-Hill. ISBN 0-262-03141-8.
+
+	    Section 26.2, "The Floyd–Warshall algorithm", pp. 558–565;
+    	    Section 26.4, "A general framework for solving path problems in directed graphs", pp. 570–576.
+
+ *  Weisstein, Eric. "Floyd-Warshall Algorithm". Wolfram MathWorld. Retrieved 13 November 2009.
+    
+ *  "Lecture 12: Shortest paths (continued)" (PDF). Network Flows and Graphs. Department of Industrial Engineering and Operations Research, 
+     University of California, Berkeley. 7 October 2008.
+
+LINKS  --:
+
+http://en.wikipedia.org/wiki/Floyd%E2%80%93Warshall_algorithm
+
+http://www.youtube.com/watch?v=IcDS7EjXxpU
+
+http://www.geeksforgeeks.org/dynamic-programming-set-16-floyd-warshall-algorithm/
+
+
+
+
+
+
+
+

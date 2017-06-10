@@ -1,0 +1,136 @@
+						Floyd Warshall Solution for the Current Graph 
+
+  The Input Graph (in matrix form ) is :
+ 
+ 	 0 3 INF INF 6 
+ 
+ 	 3 0 2 INF 5 
+ 
+ 	 INF 2 0 1 INF 
+ 
+ 	 INF INF 1 0 3 
+ 
+ 	 6 5 INF 3 0 
+ 
+ 	 
+ 
+ Applying Floyd Warshall Algorithm : 
+ 
+ 	 
+ STEP 1 : 
+ 	 W(0)  =   0 3 INF INF 6                          Pi(0) = NIL 0 NIL NIL 0 
+ 
+ 	 	   3 0 2 INF 5                                    1 NIL 1 NIL 1 
+ 
+ 	 	   INF 2 0 1 INF                                    NIL 2 NIL 2 NIL 
+ 
+ 	 	   INF INF 1 0 3                                    NIL NIL 3 NIL 3 
+ 
+ 	 	   6 5 INF 3 0                                    4 4 NIL 4 NIL 
+ 
+ 	 	   
+ 
+ STEP 2 : 
+ 	 W(1)  =   0 3 INF INF 6                          Pi(1) = NIL 0 NIL NIL 0 
+ 
+ 	 	   3 0 2 INF 5                                    1 NIL 1 NIL 1 
+ 
+ 	 	   INF 2 0 1 INF                                    NIL 2 NIL 2 NIL 
+ 
+ 	 	   INF INF 1 0 3                                    NIL NIL 3 NIL 3 
+ 
+ 	 	   6 5 INF 3 0                                    4 4 NIL 4 NIL 
+ 
+ 	 	   
+ 
+ 	 	   
+ No change occured from W(0) to W(1) 
+
+ 
+ STEP 3 : 
+ 	 W(2)  =   0 3 5 INF 6                          Pi(2) = NIL 0 NIL NIL 0 
+ 
+ 	 	   3 0 2 INF 5                                    1 NIL 1 NIL 1 
+ 
+ 	 	   5 2 0 1 7                                    NIL 2 NIL 2 NIL 
+ 
+ 	 	   INF INF 1 0 3                                    NIL NIL 3 NIL 3 
+ 
+ 	 	   6 5 7 3 0                                    4 4 NIL 4 NIL 
+ 
+ 	 	   
+ 
+ 	 	   
+ Changes occured from  W(1) to W(2)  : 
+ i = 0   j = 2   Replace = INF --> 5 
+
+ i = 2   j = 0   Replace = INF --> 5 
+
+ i = 2   j = 4   Replace = INF --> 7 
+
+ i = 4   j = 2   Replace = INF --> 7 
+
+ 
+ STEP 4 : 
+ 	 W(3)  =   0 3 5 6 6                          Pi(3) = NIL 0 NIL NIL 0 
+ 
+ 	 	   3 0 2 3 5                                    1 NIL 1 NIL 1 
+ 
+ 	 	   5 2 0 1 7                                    NIL 2 NIL 2 NIL 
+ 
+ 	 	   6 3 1 0 3                                    NIL NIL 3 NIL 3 
+ 
+ 	 	   6 5 7 3 0                                    4 4 NIL 4 NIL 
+ 
+ 	 	   
+ 
+ 	 	   
+ Changes occured from  W(2) to W(3)  : 
+ i = 0   j = 3   Replace = INF --> 6 
+
+ i = 1   j = 3   Replace = INF --> 3 
+
+ i = 3   j = 0   Replace = INF --> 6 
+
+ i = 3   j = 1   Replace = INF --> 3 
+
+ 
+ STEP 5 : 
+ 	 W(4)  =   0 3 5 6 6                          Pi(4) = NIL 0 NIL NIL 0 
+ 
+ 	 	   3 0 2 3 5                                    1 NIL 1 NIL 1 
+ 
+ 	 	   5 2 0 1 4                                    NIL 2 NIL 2 NIL 
+ 
+ 	 	   6 3 1 0 3                                    NIL NIL 3 NIL 3 
+ 
+ 	 	   6 5 4 3 0                                    4 4 NIL 4 NIL 
+ 
+ 	 	   
+ 
+ 	 	   
+ Changes occured from  W(3) to W(4)  : 
+ i = 2   j = 4   Replace = 7 --> 4 
+
+ i = 4   j = 2   Replace = 7 --> 4 
+
+ 
+ STEP 6 : 
+ 	 W(5)  =   0 3 5 6 6                          Pi(5) = NIL 0 NIL NIL 0 
+ 
+ 	 	   3 0 2 3 5                                    1 NIL 1 NIL 1 
+ 
+ 	 	   5 2 0 1 4                                    NIL 2 NIL 2 NIL 
+ 
+ 	 	   6 3 1 0 3                                    NIL NIL 3 NIL 3 
+ 
+ 	 	   6 5 4 3 0                                    4 4 NIL 4 NIL 
+ 
+ 	 	   
+ 
+ 	 	   
+ No change occured from W(4) to W(5) 
+
+   Shortest Distance from Node 1 to Node 3  :  5   
+
+   Shortest Path is from Node 1 to Node 3 :   1 --> 2 --> 3
